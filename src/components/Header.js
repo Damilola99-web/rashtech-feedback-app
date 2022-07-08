@@ -7,7 +7,7 @@ const { productRequests } = data;
 
 export default function Header({ sort, setSort }) {
 	return (
-		<div className=" absolute top-[13px] md:static rounded-none z-[2] left-0 w-screen overflow-hidden bg-[#373f68] md:w-full h-[67px] mb-4 text-white md:rounded-md text-md flex flex-row items-center justify-between py-2 px-0 sm:px-6 md:px-6 mt-16 md:mt-0">
+		<div className=" absolute top-[6px] md:static rounded-none z-[2] left-0 w-screen overflow-hidden bg-[#373f68] md:w-full h-[67px] mb-4 text-white md:rounded-md text-md flex flex-row items-center justify-between py-2 px-0 sm:px-6 md:px-6 mt-16 md:mt-0">
 			<div className=" flex flex-row space-x-4 items-center">
 				<img src={Logo} alt="" className=" hidden sm:block" />
 				<p className=" hidden sm:block">{productRequests.length} Suggestions</p>

@@ -1,9 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap');
+
+* {
+	font-family: 'Jost', sans-serif;
+}
 
 .colorful {
-    background: url(./assets/suggestions/desktop/background-header.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+	background: url(./assets/suggestions/desktop/background-header.png);
+	background-repeat: no-repeat;
+	background-size: cover;
 }

@@ -4,7 +4,7 @@ import Close from '../assets/shared/mobile/icon-close.svg';
 
 export default function({ navOpen, setNavOpen }) {
 	return (
-		<div className=" w-screen fixed top-0 px-8 left-0 md:static lg:w-full h-[80px] items-center md:h-[200px] justify-between colorful flex md:w-[36%] flex-row md:rounded-lg md:justify-start md:items-end md:p-6 z-20">
+		<div className=" w-screen fixed top-0 px-8 left-0 md:static lg:w-full h-[70px] items-center md:h-[200px] justify-between colorful flex md:w-[36%] flex-row md:rounded-lg md:justify-start md:items-end md:p-6 z-20">
 			<div>
 				<p className=" text-white text-lg align-middle">Rashtech World</p>
 				<p className=" text-white text-lg align-middle">Feedback board</p>
