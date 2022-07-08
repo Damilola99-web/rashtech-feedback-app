@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.colorful {
+    background: url(./assets/suggestions/desktop/background-header.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
