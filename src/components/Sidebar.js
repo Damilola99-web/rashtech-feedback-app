@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import data from '../data.json';
+import { useCollection } from '../hooks/useCollection';
 import Filter from './Filter';
 import Navbar from './Navbar';
 import Roadmap from './Roadmap';
-const { productRequests } = data;
+
 
 export default function Sidebar({ navOpen, setNavOpen, filter, setFilter }) {
+	const { productRequests } = useCollection('feedbacks')
 	return (
 		<div className=" flex flex-row lg:flex-col lg:space-y-4 lg:space-x-0 md:space-x-4 md:space-y-0 space-y-4  ">
 			<Navbar navOpen={navOpen} setNavOpen={setNavOpen} />

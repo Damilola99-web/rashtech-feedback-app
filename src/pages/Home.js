@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Product from '../components/Product';
 import Sidebar from '../components/Sidebar';
+import { useCollection } from '../hooks/useCollection';
 
-// import data
-import data from '../data.json';
-const { productRequests } = data;
+
+
 
 const Home = () => {
+	const { productRequests } = useCollection('feedbacks')
 	const [ filter, setFilter ] = useState('all');
 	const [ sort, setSort ] = useState('most comments');
 
-	const filteredRequests = productRequests.filter((product) => {
+	const filteredRequests = productRequests?.filter((product) => {
 		switch (filter) {
 			case 'all':
 				return true;
@@ -45,7 +46,6 @@ const Home = () => {
 		}
 	});
 
-	console.log(filteredRequests);
 
 	const [ navOpen, setNavOpen ] = useState(false);
 	return (

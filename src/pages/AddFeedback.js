@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Left from '../assets/shared/icon-arrow-left.svg';
 import Add from '../assets/shared/icon-new-feedback.svg';
+import { useFirestore } from '../hooks/useFirestore';
 
 const AddFeedback = () => {
+	const navigate = useNavigate()
+	const {addDocument} = useFirestore('feedbacks')
 	const [ title, setTitle ] = useState('');
 	const [ category, setCategory ] = useState('');
 	const [ description, setDescription ] = useState('');
 
 	const handleSubmit = async (e) => {
         e.preventDefault()
-		console.log(title, category, description);
+		addDocument({title, category, description});
+		navigate('/')
+
 	};
 
 	return (
@@ -46,6 +52,7 @@ const AddFeedback = () => {
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
 						>
+							<option value="">Select category</option>
 							<option value="feature">Feature</option>
 							<option value="ui">UI</option>
 							<option value="ux">UX</option>

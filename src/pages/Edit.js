@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Left from '../assets/shared/icon-arrow-left.svg';
 import EditIcon from '../assets/shared/icon-edit-feedback.svg';
 import { Link } from 'react-router-dom';
+import { useFirestore } from '../hooks/useFirestore';
+import { useDocument } from '../hooks/useDocument';
 
 const Edit = () => {
+	const {updateDocument} = useFirestore('feedbacks')
+	const navigate = useNavigate()
+	const {deleteDocument } = useFirestore('feedbacks')
 	const { id } = useParams();
+	const {error, product} = useDocument(id, 'feedbacks')
 	const [ title, setTitle ] = useState('');
 	const [ category, setCategory ] = useState('');
 	const [ description, setDescription ] = useState('');
 	const [ status, setStatus ] = useState('');
 
+	useEffect(()=>{
+		setTitle(product?.title)
+		setCategory(product?.category)
+		setDescription(product?.description)
+		setStatus(product?.status)
+	}, [product])
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(title, category, description);
+		updateDocument(id, {title, category, description, status});
+		navigate(`/details/${id}`)
+
 	};
 	const handleDelete = async (e) => {
 		e.preventDefault();
-		console.log('deleted');
+		deleteDocument(id)
+		navigate('/')
+		
 	};
 	return (
 		<div className=" flex flex-col w-full">
@@ -52,6 +70,7 @@ const Edit = () => {
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
 						>
+							<option value="">Select category</option>
 							<option value="feature">Feature</option>
 							<option value="ui">UI</option>
 							<option value="ux">UX</option>
