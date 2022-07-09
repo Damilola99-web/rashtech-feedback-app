@@ -13,6 +13,7 @@ import Roadmap from './pages/Roadmap';
 import Details from './pages/Details';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Edit from './pages/Edit';
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/details/:id' element={<Details />}/>
         <Route path='/roadmap' element={<Roadmap />}/>
         <Route path='/add' element={<AddFeedback />}/>
+        <Route path='/edit/:id' element={<Edit />}/>
         <Route path='*' element={<Missing />}/>
       </Routes>
      </Router>
