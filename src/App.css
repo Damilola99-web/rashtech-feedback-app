@@ -689,6 +689,10 @@ video {
   margin-bottom: 1.75rem;
 }
 
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
 .block {
   display: block;
 }
@@ -1524,6 +1528,10 @@ video {
 @media (min-width: 1024px) {
   .lg\:grid {
     display: grid;
+  }
+
+  .lg\:hidden {
+    display: none;
   }
 
   .lg\:w-full {
