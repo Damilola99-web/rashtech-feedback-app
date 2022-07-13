@@ -6,7 +6,7 @@ export default function CommentData({ comment }) {
 		<div key={comment.id} className=" w-full flex flex-row justify-center border-b-2 my-3 p-4">
 			<div className=" w-full flex flex-col justify-center space-y-6 mb-4">
 				<div className=" w-full flex items-center justify-between">
-					<div className=' flex flex-row space-x-6 justify-between items-center'>
+					<div className=' flex flex-row space-x-3 sm:space-x-6 justify-between items-center'>
 						<img src={comment.photoUrl} alt="" className=" rounded-full w-12 h-12" />
 						<div className=" flex flex-col justify-center">
 							<p className=" text-base text-blue-800 font-bold">{comment.name}</p>
@@ -33,7 +33,7 @@ export default function CommentData({ comment }) {
 							</span>
 							<span
 								type="submit"
-								className=" cursor-pointer justify-center flex items-center w-full s px-6 h-[50px] text-base  font-bold text-white rounded-lg bg-[#ad1fea]"
+								className=" cursor-pointer justify-center flex items-center w-full s px-6 h-[50px] text-sm  font-bold text-white rounded-lg bg-[#ad1fea]"
 							>
 								Post reply
 							</span>
