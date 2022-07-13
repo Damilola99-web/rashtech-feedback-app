@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export const useCollection = (collectionName) => {
 	const [ productRequests, setProductRequests ] = useState([]);
 	const [isPending, setIsPending] = useState(false)
+	const [error, setError] = useState(null)
 	
 	useEffect(
 		() => {
@@ -17,11 +18,13 @@ export const useCollection = (collectionName) => {
 				});
 				setProductRequests(result);
 				setIsPending(false)
+			}, err => {
+				setError(err.message)
 			});
 			return () => unsub();
 		},
 		[ collectionName ]
 	);
 
-	return { productRequests, isPending };
+	return { productRequests, isPending, error };
 };
