@@ -33,7 +33,7 @@ export default function Roadmap() {
 							<p>Ideas Priortized for research</p>
 						</div>
 						<div className=" w-full flex flex-col">
-							{planned.map((request) => <RoadmapProduct color={'orange'} product={request} />)}
+							{planned.map((request) => <RoadmapProduct key={request.id} color={'orange'} product={request} />)}
 						</div>
 					</div>
 
@@ -44,7 +44,7 @@ export default function Roadmap() {
 							<p>Currently being Developed</p>
 						</div>
 						<div className=" w-full flex flex-col">
-							{inProgress.map((request) => <RoadmapProduct color={'purple'} product={request} />)}
+							{inProgress.map((request) => <RoadmapProduct key={request.id} color={'purple'} product={request} />)}
 						</div>
 					</div>
 
@@ -54,7 +54,7 @@ export default function Roadmap() {
 							<p>Released Features</p>
 						</div>
 						<div className=" w-full flex flex-col">
-							{live.map((request) => <RoadmapProduct color={'green'} product={request} />)}
+							{live.map((request) => <RoadmapProduct key={request.id} color={'green'} product={request} />)}
 						</div>
 					</div>
 				</div>
