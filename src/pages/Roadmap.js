@@ -4,6 +4,7 @@ import Left from '../assets/shared/icon-arrow-left.svg';
 import { Link } from 'react-router-dom';
 import { useCollection } from '../hooks/useCollection';
 import RoadmapProduct from '../components/RoadmapProduct';
+import Loading from '../components/Loading';
 
 export default function Roadmap() {
 	const [ currentStatus, setCurrentStatus ] = useState('planned');
@@ -23,8 +24,8 @@ export default function Roadmap() {
 				<img src={Left} alt="" />
 				<p>Go Back</p>
 			</Link>
-			{isPending && <p>Loading...</p>}
-			{error && <p>{error}</p>}
+			{isPending && <Loading />}
+			{error && <p className=" flex self-center max-w-[270px] bg-red-200 border-4 border-red-600 rounded-lg items-center p-6">{error}</p>}
 			{!isPending &&
 			productRequests.length > 0 && (
 				<div className=" w-full lg:grid grid-cols-3 gap-3">

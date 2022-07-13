@@ -37,7 +37,7 @@ export default function Roadmap({ navOpen, productRequests }) {
 				!navOpen ? (
 					'hidden md:flex flex-col  w-full h-[200px] bg-white rounded-lg p-6'
 				) : (
-					' flex flex-col w-full h-[200px] bg-white rounded-lg p-10'
+					' flex flex-col w-full h-[200px] bg-white rounded-lg p-8'
 				)
 			}
 		>

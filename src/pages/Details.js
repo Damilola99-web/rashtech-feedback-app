@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Left from '../assets/shared/icon-arrow-left.svg';
 import Comment from '../components/Comment';
 import CommentList from '../components/CommentList';
+import Loading from '../components/Loading';
 import Product from '../components/Product';
 import { useDocument } from '../hooks/useDocument';
 
@@ -23,11 +24,11 @@ export default function Details() {
 					</button>
 				</Link>}
 			</div>
-			{isPending && <p>Loading...</p>}
+			{isPending && <Loading />}
 			{product && <Product product={product} />}
 			{product?.comments.length > 0 && <CommentList comments={product.comments} />}
 			{product && <Comment id={id} comments={product?.comments} />}
-			{error && <p>{error}</p>}
+			{error && <p className=" flex self-center max-w-[270px] bg-red-200 border-4 border-red-600 rounded-lg items-center p-6">{error}</p>}
 		</div>
 	);
 }

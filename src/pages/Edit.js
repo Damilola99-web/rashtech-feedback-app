@@ -7,6 +7,7 @@ import EditIcon from '../assets/shared/icon-edit-feedback.svg';
 import { Link } from 'react-router-dom';
 import { useFirestore } from '../hooks/useFirestore';
 import { useDocument } from '../hooks/useDocument';
+import Loading from '../components/Loading';
 
 const Edit = () => {
 	const { updateDocument } = useFirestore('feedbacks');
@@ -45,13 +46,17 @@ const Edit = () => {
 				<img src={Left} alt="" />
 				<p>Go Back</p>
 			</Link>
-			<div className=" bg-white my-10 px-6 sm:px-14 py-14 rounded-2xl relative max-w-[1100px] self-center">
-				<img src={EditIcon} alt="add-icon" className=" w-12 absolute top-[-1.5rem] left-6 sm:left-12" />
-				<p className=" text-2xl font-bold my-6 mb-10">Editing More comprehensive reports</p>
+			{error && (
+				<p className=" flex self-center max-w-[270px] bg-red-200 border-4 border-red-600 rounded-lg items-center p-6">
+					{error}
+				</p>
+			)}
+			{isPending && <Loading />}
+			{product && (
+				<div className=" bg-white my-10 px-6 sm:px-14 py-14 rounded-2xl relative max-w-[1100px] self-center">
+					<img src={EditIcon} alt="add-icon" className=" w-12 absolute top-[-1.5rem] left-6 sm:left-12" />
+					<p className=" text-2xl font-bold my-6 mb-10">Editing More comprehensive reports</p>
 
-                {error && <p>{error}</p>}
-				{isPending && <p>Loading...</p>}
-				{product && (
 					<form className="my-4" onSubmit={handleSubmit}>
 						<label className=" mb-8 block">
 							<span className=" text-lg font-bold block mb-1">Feedback Title</span>
@@ -130,8 +135,8 @@ const Edit = () => {
 							</span>
 						</div>
 					</form>
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 };

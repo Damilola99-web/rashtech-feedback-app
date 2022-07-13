@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import Product from '../components/Product';
 import Sidebar from '../components/Sidebar';
 import { useCollection } from '../hooks/useCollection';
 
-
-
-
 const Home = () => {
-	const { productRequests, isPending } = useCollection('feedbacks')
+	const { productRequests, isPending } = useCollection('feedbacks');
 	const [ filter, setFilter ] = useState('all');
 	const [ sort, setSort ] = useState('most comments');
 
-	const filteredRequests = productRequests?.filter((product) => {
+	const filteredRequests = productRequests.filter((product) => {
 		switch (filter) {
 			case 'all':
 				return true;
@@ -46,7 +44,6 @@ const Home = () => {
 		}
 	});
 
-
 	const [ navOpen, setNavOpen ] = useState(false);
 	return (
 		<div className=" mt-28 md:mt-0  md:flex md:flex-col md:space-y-12 lg:grid lg:grid-cols-[2fr,6fr] lg:space-y-0 lg:gap-4 w-full max-w-[1200px]">
@@ -63,8 +60,13 @@ const Home = () => {
 				<div className=" flex flex-col">
 					{filteredRequests &&
 						filteredRequests.map((product) => <Product product={product} key={product.id} />)}
-					{!isPending && filteredRequests.length === 0 && <p>No feedback on {filter} yet.</p>}
-					{isPending && <p>Loading...</p>}
+					{!isPending &&
+					filteredRequests.length === 0 && (
+						<p className=" flex self-center max-w-[270px] bg-white rounded-lg items-center p-6">
+							No feedback on {filter} yet.
+						</p>
+					)}
+					{isPending && <Loading />}
 				</div>
 			</div>
 		</div>
