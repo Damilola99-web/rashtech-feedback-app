@@ -10,14 +10,14 @@ export default function Roadmap({ navOpen, productRequests }) {
 	let checkprogress = 0;
 	let checklive = 0;
 
-	productRequests?.forEach((product) => {
-		if (product.status == 'in-progress') {
+	productRequests.forEach((product) => {
+		if (product.status === 'in-progress') {
 			checkprogress += 1;
 		}
-		else if (product.status == 'planned') {
+		else if (product.status === 'planned') {
 			checkplanned += 1;
 		}
-		else if (product.status == 'live') {
+		else if (product.status === 'live') {
 			checklive += 1;
 		}
 	});
@@ -45,17 +45,26 @@ export default function Roadmap({ navOpen, productRequests }) {
 				<p>Roadmap</p>
 				<Link to="/roadmap">View</Link>
 			</div>
-			<div className=" mt-10">
-				<div className="flex flex-row justify-between items-center">
-					<p>Planned</p>
+			<div className=" mt-6">
+				<div className="flex flex-row justify-between items-center my-2">
+					<div className=" flex space-x-4 items-center justify-center">
+						<span className=" w-2 h-2 rounded-full bg-orange-400" />
+						<p>Planned</p>
+					</div>
 					<p>{planned}</p>
 				</div>
-				<div className="flex flex-row justify-between items-center">
-					<p>In-Progress</p>
+				<div className="flex flex-row justify-between items-center my-2">
+					<div className=" flex space-x-4 items-center justify-center">
+						<span className=" w-2 h-2 rounded-full bg-purple-600" />
+						<p>In-Progress</p>
+					</div>
 					<p>{inProgress}</p>
 				</div>
-				<div className="flex flex-row justify-between items-center">
-					<p>Live</p>
+				<div className="flex flex-row justify-between items-center my-2">
+					<div className=" flex space-x-4 items-center justify-center">
+						<span className=" w-2 h-2 rounded-full bg-green-400" />
+						<p>Live</p>
+					</div>
 					<p>{live}</p>
 				</div>
 			</div>

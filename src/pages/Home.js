@@ -8,7 +8,7 @@ import { useCollection } from '../hooks/useCollection';
 
 
 const Home = () => {
-	const { productRequests } = useCollection('feedbacks')
+	const { productRequests, isPending } = useCollection('feedbacks')
 	const [ filter, setFilter ] = useState('all');
 	const [ sort, setSort ] = useState('most comments');
 
@@ -63,7 +63,8 @@ const Home = () => {
 				<div className=" flex flex-col">
 					{filteredRequests &&
 						filteredRequests.map((product) => <Product product={product} key={product.id} />)}
-					{filteredRequests.length === 0 && <p>No feedback on {filter} yet.</p>}
+					{!isPending && filteredRequests.length === 0 && <p>No feedback on {filter} yet.</p>}
+					{isPending && <p>Loading...</p>}
 				</div>
 			</div>
 		</div>

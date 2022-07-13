@@ -9,34 +9,35 @@ import { useFirestore } from '../hooks/useFirestore';
 import { useDocument } from '../hooks/useDocument';
 
 const Edit = () => {
-	const {updateDocument} = useFirestore('feedbacks')
-	const navigate = useNavigate()
-	const {deleteDocument } = useFirestore('feedbacks')
+	const { updateDocument } = useFirestore('feedbacks');
+	const navigate = useNavigate();
+	const { deleteDocument } = useFirestore('feedbacks');
 	const { id } = useParams();
-	const {error, product} = useDocument(id, 'feedbacks')
+	const { error, product, isPending } = useDocument(id, 'feedbacks');
 	const [ title, setTitle ] = useState('');
 	const [ category, setCategory ] = useState('');
 	const [ description, setDescription ] = useState('');
 	const [ status, setStatus ] = useState('');
 
-	useEffect(()=>{
-		setTitle(product?.title)
-		setCategory(product?.category)
-		setDescription(product?.description)
-		setStatus(product?.status)
-	}, [product])
+	useEffect(
+		() => {
+			setTitle(product?.title);
+			setCategory(product?.category);
+			setDescription(product?.description);
+			setStatus(product?.status);
+		},
+		[ product ]
+	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		updateDocument(id, {title, category, description, status});
-		navigate(`/details/${id}`)
-
+		updateDocument(id, { title, category, description, status });
+		navigate(`/details/${id}`);
 	};
 	const handleDelete = async (e) => {
 		e.preventDefault();
-		deleteDocument(id)
-		navigate('/')
-		
+		deleteDocument(id);
+		navigate('/');
 	};
 	return (
 		<div className=" flex flex-col w-full">
@@ -48,84 +49,88 @@ const Edit = () => {
 				<img src={EditIcon} alt="add-icon" className=" w-12 absolute top-[-1.5rem] left-6 sm:left-12" />
 				<p className=" text-2xl font-bold my-6 mb-10">Editing More comprehensive reports</p>
 
-				<form className="my-4" onSubmit={handleSubmit}>
-					<label className=" mb-8 block">
-						<span className=" text-lg font-bold block mb-1">Feedback Title</span>
-						<span className=" text-lg block mb-6">Add a short, descriptive headline</span>
-						<input
-							required
-							className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
-							type="text"
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-						/>
-					</label>
-					<label className=" mb-8 block">
-						<span className=" text-lg font-bold block mb-1">Category</span>
-						<span className=" text-lg block mb-6">Select a category</span>
-						<select
-							required
-							id="category"
-							className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
-							value={category}
-							onChange={(e) => setCategory(e.target.value)}
-						>
-							<option value="">Select category</option>
-							<option value="feature">Feature</option>
-							<option value="ui">UI</option>
-							<option value="ux">UX</option>
-							<option value="enhancement">Enhancement</option>
-							<option value="bug">Bug</option>
-						</select>
-					</label>
-					<label className=" mb-8 block">
-						<span className=" text-lg font-bold block mb-1">Update Status</span>
-						<span className=" text-lg block mb-6">Change feature state</span>
-						<select
-							required
-							className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
-							value={status}
-							onChange={(e) => setStatus(e.target.value)}
-						>
-							<option value="planned">Planned</option>
-							<option value="in-progress">In-progress</option>
-							<option value="live">Live</option>
-						</select>
-					</label>
-					<label className=" mb-8 block">
-						<span className=" text-lg font-bold block mb-1">Feedback Detail</span>
-						<span className=" text-lg block mb-6">
-							Include any specific comment on what should be added, improved, etc.
-						</span>
-						<textarea
-							required
-							className=" bg-[#f2f4ff] py-6 focus:border-0 focus:outline-0 w-full h-[150px] rounded-xl px-6"
-							value={description}
-							onChange={(e) => setDescription(e.target.value)}
-						/>
-					</label>
-					<div className=" w-full space-y-4  flex flex-col sm:flex-row items-center justify-end sm:space-x-4 sm:space-y-0">
-						<button
-							type="submit"
-							className=" w-full sm:w-auto px-6 h-[50px] text-base  font-bold text-white rounded-lg bg-[#ad1fea]"
-						>
-							Save Changes
-						</button>
-						<Link
-							to={`/details/${id}`}
-							className=" justify-center w-full sm:w-auto flex items-center px-6 h-[50px] text-base font-bold text-white rounded-lg bg-[#373f68]"
-						>
-							Cancel
-						</Link>
-                        <span
-							type="submit"
-                            onClick={handleDelete}
-							className=" justify-center flex items-center w-full sm:w-auto px-6 h-[50px] text-base  font-bold text-white rounded-lg bg-red-600"
-						>
-							Delete
-						</span>
-					</div>
-				</form>
+                {error && <p>{error}</p>}
+				{isPending && <p>Loading...</p>}
+				{product && (
+					<form className="my-4" onSubmit={handleSubmit}>
+						<label className=" mb-8 block">
+							<span className=" text-lg font-bold block mb-1">Feedback Title</span>
+							<span className=" text-lg block mb-6">Add a short, descriptive headline</span>
+							<input
+								required
+								className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
+								type="text"
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</label>
+						<label className=" mb-8 block">
+							<span className=" text-lg font-bold block mb-1">Category</span>
+							<span className=" text-lg block mb-6">Select a category</span>
+							<select
+								required
+								id="category"
+								className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
+								value={category}
+								onChange={(e) => setCategory(e.target.value)}
+							>
+								<option value="">Select category</option>
+								<option value="feature">Feature</option>
+								<option value="ui">UI</option>
+								<option value="ux">UX</option>
+								<option value="enhancement">Enhancement</option>
+								<option value="bug">Bug</option>
+							</select>
+						</label>
+						<label className=" mb-8 block">
+							<span className=" text-lg font-bold block mb-1">Update Status</span>
+							<span className=" text-lg block mb-6">Change feature state</span>
+							<select
+								required
+								className=" bg-[#f2f4ff] focus:border-0 focus:outline-0 w-full h-[60px] rounded-xl px-6"
+								value={status}
+								onChange={(e) => setStatus(e.target.value)}
+							>
+								<option value="planned">Planned</option>
+								<option value="in-progress">In-progress</option>
+								<option value="live">Live</option>
+							</select>
+						</label>
+						<label className=" mb-8 block">
+							<span className=" text-lg font-bold block mb-1">Feedback Detail</span>
+							<span className=" text-lg block mb-6">
+								Include any specific comment on what should be added, improved, etc.
+							</span>
+							<textarea
+								required
+								className=" bg-[#f2f4ff] py-6 focus:border-0 focus:outline-0 w-full h-[150px] rounded-xl px-6"
+								value={description}
+								onChange={(e) => setDescription(e.target.value)}
+							/>
+						</label>
+						<div className=" w-full space-y-4  flex flex-col sm:flex-row items-center justify-end sm:space-x-4 sm:space-y-0">
+							<button
+								type="submit"
+								className=" w-full sm:w-auto px-6 h-[50px] text-base  font-bold text-white rounded-lg bg-[#ad1fea]"
+							>
+								Save Changes
+							</button>
+							<Link
+								to={`/details/${id}`}
+								className=" justify-center w-full sm:w-auto flex items-center px-6 h-[50px] text-base font-bold text-white rounded-lg bg-[#373f68]"
+							>
+								Cancel
+							</Link>
+							<span
+								type="submit"
+								onClick={handleDelete}
+								className=" justify-center flex items-center w-full sm:w-auto px-6 h-[50px] text-base  font-bold text-white rounded-lg bg-red-600"
+							>
+								Delete
+							</span>
+						</div>
+					</form>
+				)}
 			</div>
 		</div>
 	);
