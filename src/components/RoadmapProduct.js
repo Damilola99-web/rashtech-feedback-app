@@ -16,7 +16,10 @@ export default function RoadmapProduct({ product, color }) {
 							<p>{upvotes}</p>
 						</button>
 						<div className=" sm:ml-10">
-                            <p>{status}</p>
+                            <div className=' flex flex-row space-x-3 items-center my-2'>
+                                <span style={{backgroundColor : color}} className=' w-2 h-2 rounded-full'></span>
+                                <p className=' text-lg capitalize'>{status}</p>
+                            </div>
 							<h3 className=' text-base font-bold text-blue-600 my-1'>{title}</h3>
 							<p className=' text-base my-1'>{description}</p>
 							<button className=" px-5 py-2 flex items-center h-[30px] rounded-lg bg-[#f2f4ff] text-blue-600 font-bold my-2">

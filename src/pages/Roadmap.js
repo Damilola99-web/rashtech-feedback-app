@@ -25,7 +25,7 @@ export default function Roadmap() {
 			{isPending && <p>Loading...</p>}
       {error && <p>{error}</p>}
 			{ !isPending && productRequests.length > 0 && (
-				<div className=" w-full grid grid-cols-3 gap-4">
+				<div className=" w-full lg:grid grid-cols-3 gap-3">
 					{/*  planned projects  */}
 					<div className="w-full flex flex-col">
 						<div className=' mb-7'>
