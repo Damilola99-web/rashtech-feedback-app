@@ -38,8 +38,10 @@ const Comment = ({ id, comments }) => {
 	const { updateDocument } = useFirestore('feedbacks');
 	const [ counter, setCounter ] = useState(250);
 	const [ comment, setComment ] = useState('');
+	const [ fakeComment, setFakeComment ] = useState('');
 	const [ error, setError ] = useState(null);
 	const handleChange = (e) => {
+		setFakeComment(e.target.value);
 		const post = e.target.value.trim();
 		setComment(post);
 		setCounter(250 - comment.length);
@@ -47,16 +49,19 @@ const Comment = ({ id, comments }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		const userData = users[Math.floor(Math.random()*6 - 0.2)]
+		const userData = users[Math.floor(Math.random() * 6 - 0.2)];
 		e.preventDefault();
 		if (comment.length > 0) {
 			setError(null);
 			try {
-				await updateDocument(id, { comments: [ ...comments, { content: comment, ...userData, id: Math.random() } ] });
+				await updateDocument(id, {
+					comments: [ ...comments, { content: comment, ...userData, id: Math.random() } ]
+				});
 			} catch (err) {
 				setError(err);
 			}
 			setComment('');
+			setFakeComment('');
 		}
 		else {
 			setError('Comment cannot be empty');
@@ -69,7 +74,7 @@ const Comment = ({ id, comments }) => {
 			<form className=" w-full" onSubmit={handleSubmit}>
 				{error && <p className=" mt-2 text-base text-red-600">{error}</p>}
 				<textarea
-					value={comment}
+					value={fakeComment}
 					maxLength="250"
 					onChange={handleChange}
 					placeholder="Type your comment here..."

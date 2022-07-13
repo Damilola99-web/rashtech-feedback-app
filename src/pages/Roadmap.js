@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Left from '../assets/shared/icon-arrow-left.svg';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useCollection } from '../hooks/useCollection';
 import RoadmapProduct from '../components/RoadmapProduct';
 
 export default function Roadmap() {
+	const [ currentStatus, setCurrentStatus ] = useState('planned');
 	const { productRequests, isPending, error } = useCollection('feedbacks');
 	const planned = productRequests.filter((request) => {
 		return request.status === 'planned';
@@ -27,15 +28,52 @@ export default function Roadmap() {
 			{!isPending &&
 			productRequests.length > 0 && (
 				<div className=" w-full lg:grid grid-cols-3 gap-3">
-					<div className=' flex justify-between lg:hidden'>
-						<p>Planned ({planned.length})</p>
-						<p>In-Progress ({inProgress.length})</p>
-						<p>Live ({live.length})</p>
+					<div className=" flex justify-between border-b-2 mb-10 sm:px-6 lg:hidden">
+						<p
+							className={
+								currentStatus !== 'planned' ? (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-transparent text-gray-400 text-center border-b-4 sm:border-b-8 cursor-pointer'
+								) : (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-orange-400 text-black text-center border-b-4 sm:border-b-8 cursor-pointer'
+								)
+							}
+							onClick={() => setCurrentStatus('planned')}
+						>
+							Planned ({planned.length})
+						</p>
+						<p
+							className={
+								currentStatus !== 'in-progress' ? (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-transparent text-gray-400 text-center border-b-4 sm:border-b-8 cursor-pointer'
+								) : (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-purple-600 text-black text-center border-b-4 sm:border-b-8 cursor-pointer'
+								)
+							}
+							onClick={() => setCurrentStatus('in-progress')}
+						>
+							In-Progress ({inProgress.length})
+						</p>
+						<p
+							className={
+								currentStatus !== 'live' ? (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-transparent text-gray-400 text-center border-b-4 sm:border-b-8 cursor-pointer'
+								) : (
+									'pb-4 w-[33%] text-sm sm:text-lg font-bold border-green-400 text-black text-center border-b-4 sm:border-b-8 cursor-pointer'
+								)
+							}
+							onClick={() => setCurrentStatus('live')}
+						>
+							Live ({live.length})
+						</p>
 					</div>
 					{/*  planned projects  */}
-					<div className="w-full flex flex-col">
+					<div
+						className={
+							currentStatus === 'planned' ? 'w-full flex flex-col' : 'w-full lg:flex flex-col hidden'
+						}
+					>
 						<div className=" mb-7">
-							<p>Planned ({planned.length})</p>
+							<p className=' text-lg sm:text-xl font-bold'>Planned ({planned.length})</p>
 							<p>Ideas Priortized for research</p>
 						</div>
 						<div className=" w-full flex flex-col">
@@ -46,9 +84,13 @@ export default function Roadmap() {
 					</div>
 
 					{/* projects in progress  */}
-					<div className="w-full flex flex-col">
+					<div
+						className={
+							currentStatus === 'in-progress' ? 'w-full flex flex-col' : 'w-full lg:flex flex-col hidden'
+						}
+					>
 						<div className="mb-7">
-							<p>In-Progress ({inProgress.length})</p>
+							<p className=' text-lg sm:text-xl font-bold'>In-Progress ({inProgress.length})</p>
 							<p>Currently being Developed</p>
 						</div>
 						<div className=" w-full flex flex-col">
@@ -58,9 +100,12 @@ export default function Roadmap() {
 						</div>
 					</div>
 
-					<div className="w-full flex flex-col">
+					{/* live projects  */}
+					<div
+						className={currentStatus === 'live' ? 'w-full flex flex-col' : 'w-full lg:flex flex-col hidden'}
+					>
 						<div className="mb-7">
-							<p>Live ({live.length})</p>
+							<p className=' text-lg sm:text-xl font-bold'>Live ({live.length})</p>
 							<p>Released Features</p>
 						</div>
 						<div className=" w-full flex flex-col">
